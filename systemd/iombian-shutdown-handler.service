@@ -1,0 +1,14 @@
+[Unit]
+Description=IoMBian Shutdown Handler
+
+[Service]
+Type=simple
+User=root
+Restart=always
+RestartSec=5
+
+WorkingDirectory=/opt/iombian-shutdown-handler
+ExecStart=/opt/iombian-shutdown-handler/venv/bin/python /opt/iombian-shutdown-handler/main.py
+
+[Install]
+WantedBy=multi-user.target
