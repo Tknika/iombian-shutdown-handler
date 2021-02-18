@@ -26,6 +26,8 @@ class SubClient():
         self.socket.connect(self.addr)
         if self.topic_filter:
             self.socket.subscribe(self.topic_filter)
+        else:
+            self.socket.subscribe("")
         
         self.listen = True
         self.listen_thread = threading.Thread(target=self.__listen)
