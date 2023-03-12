@@ -2,27 +2,32 @@
 
 This service listens to a "long_click" event from a ZeroMQ publisher and shuts down the device.
 
+
 ## Installation
+
+- Define project name in an environment variable:
+
+> ```PROJECT_NAME=iombian-shutdown-handler```
 
 - Clone the repo into a temp folder:
 
-> ```git clone https://github.com/Tknika/iombian-shutdown-handler.git /tmp/iombian-shutdown-handler && cd /tmp/iombian-shutdown-handler```
+> ```git clone https://github.com/Tknika/${PROJECT_NAME}.git /tmp/${PROJECT_NAME} && cd /tmp/${PROJECT_NAME}```
 
 - Create the installation folder and move the appropiate files (edit the user):
 
-> ```sudo mkdir /opt/iombian-shutdown-handler```
+> ```sudo mkdir /opt/${PROJECT_NAME}```
 
-> ```sudo cp requirements.txt /opt/iombian-shutdown-handler```
+> ```sudo cp requirements.txt /opt/${PROJECT_NAME}```
 
-> ```sudo cp -r src/* /opt/iombian-shutdown-handler```
+> ```sudo cp -r src/* /opt/${PROJECT_NAME}```
 
-> ```sudo cp systemd/iombian-shutdown-handler.service /etc/systemd/system/```
+> ```sudo cp systemd/${PROJECT_NAME}.service /etc/systemd/system/```
 
-> ```sudo chown -R iompi:iompi /opt/iombian-shutdown-handler```
+> ```sudo chown -R iompi:iompi /opt/${PROJECT_NAME}```
 
 - Create the virtual environment and install the dependencies:
 
-> ```cd /opt/iombian-shutdown-handler```
+> ```cd /opt/${PROJECT_NAME}```
 
 > ```python3 -m venv venv```
 
@@ -34,7 +39,8 @@ This service listens to a "long_click" event from a ZeroMQ publisher and shuts d
 
 - Start the script
 
-> ```sudo systemctl enable iombian-shutdown-handler.service && sudo systemctl start iombian-shutdown-handler.service```
+> ```sudo systemctl enable ${PROJECT_NAME}.service && sudo systemctl start ${PROJECT_NAME}.service```
+
 
 ## Author
 
