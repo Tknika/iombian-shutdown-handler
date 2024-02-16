@@ -1,0 +1,14 @@
+services:
+  shutdown-handler:
+    image: iombian-shutdown-handler
+    container_name: iombian-shutdown-handler
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - /run/systemd/system:/run/systemd/system
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+      - /bin/systemctl:/bin/systemctl
+    environment:
+      BUTTON_EVENTS_PORT: ${BUTTON_EVENTS_PORT:-5556}
+      SHUTDOWN_EVENT: ${SHUTDOWN_EVENT:-long_click}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO} 

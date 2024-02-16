@@ -6,17 +6,19 @@ import signal
 
 from sub_client import SubClient
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s', level=logging.INFO)
-logger = logging.getLogger(__name__)
 
-CLIENT_PORT = 5556
-SHUTDOWN_EVENT = "long_click"
+CLIENT_PORT = int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
+SHUTDOWN_EVENT = os.environ.get("SHUTDOWN_EVENT", "long_click")
+LOG_LEVEL = os.environ.get("LOG_LEVEL", logging.INFO)
+
+logging.basicConfig(format='%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s', level=LOG_LEVEL)
+logger = logging.getLogger(__name__)
 
 
 def button_event_callback(event):
     logger.debug(f"'{event}' event received")
     if event == SHUTDOWN_EVENT:
-        os.system("poweroff")
+        os.system("systemctl poweroff")
 
 
 def signal_handler(sig, frame):
