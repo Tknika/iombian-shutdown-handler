@@ -7,7 +7,8 @@ import signal
 from sub_client import SubClient
 
 
-CLIENT_PORT = int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
+BUTTON_EVENTS_HOST = os.environ.get("BUTTON_EVENTS_HOST", "127.0.0.1")
+BUTTON_EVENTS_PORT= int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
 SHUTDOWN_EVENT = os.environ.get("SHUTDOWN_EVENT", "long_click")
 LOG_LEVEL = os.environ.get("LOG_LEVEL", logging.INFO)
 
@@ -29,7 +30,7 @@ def signal_handler(sig, frame):
 if __name__ == "__main__":
     logger.info("Starting IoMBian Shutdown Handler")
 
-    client = SubClient(on_message_callback=button_event_callback, port=CLIENT_PORT)
+    client = SubClient(on_message_callback=button_event_callback, port=BUTTON_EVENTS_PORT, host=BUTTON_EVENTS_HOST)
     client.start()
 
     signal.signal(signal.SIGINT, signal_handler)
