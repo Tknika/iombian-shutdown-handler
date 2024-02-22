@@ -9,10 +9,8 @@ services:
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
       - /bin/systemctl:/bin/systemctl
     environment:
-      BUTTON_EVENTS_PORT: ${BUTTON_EVENTS_PORT:-5556}
       SHUTDOWN_EVENT: ${SHUTDOWN_EVENT:-long_click}
       LOG_LEVEL: ${LOG_LEVEL:-INFO} 
-      BUTTON_EVENTS_HOST: ${BUTTON_EVENTS_PORT:-iombian-button-handler}
     networks:
       - iombian-internal-services 
 networks:
