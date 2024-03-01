@@ -15,7 +15,7 @@ BUTTON_EVENTS_HOST = os.environ.get("BUTTON_EVENTS_HOST", "127.0.0.1")
 SHUTDOWN_HOST = os.environ.get("SHUTDOWN_HOST", "127.0.0.1")
 SHUTDOWN_PORT = int(os.environ.get("SHUTDOWN_PORT", 5558))
 
-SHUTDOWN_MESSAGE = "shutdown"
+SHUTDOWN_COMMAND = "shutdown"
 
 logging.basicConfig(format="%(asctime)s %(levelname)-8s - %(name)-16s - %(message)s", level=LOG_LEVEL)
 logger = logging.getLogger(__name__)
@@ -24,13 +24,15 @@ logger = logging.getLogger(__name__)
 def button_event_callback(event):
     logger.debug(f"'{event}' event received")
     if event == SHUTDOWN_EVENT:
-        comm_module.execute_command("shutdown")
+        logger.debug(f"Sending {SHUTDOWN_COMMAND} command to {SHUTDOWN_HOST}:{SHUTDOWN_PORT}")
+        comm_module.execute_command(SHUTDOWN_COMMAND)
         # os.system("systemctl poweroff")
 
 
 def signal_handler(sig, frame):
     logger.info("Stopping IoMBian Shutdown Handler")
     client.stop()
+    comm_module.stop()
 
 
 if __name__ == "__main__":
