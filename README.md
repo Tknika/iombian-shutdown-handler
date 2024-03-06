@@ -54,13 +54,13 @@ After building the image, execute it with docker run.
 
 ```docker run --name ${CONTAINER_NAME} --rm -d -e SHUTDOWN_EVENT=triple_click```
 
-- --name is used to define the name of the created container.
+- **--name** is used to define the name of the created container.
 
-- --rm can be used to delete the container when it stops. This parameter is optional.
+- **--rm** can be used to delete the container when it stops. This parameter is optional.
 
-- -d is used to run the container detached. This way the container will run in the background. This parameter is optional.
+- **-d** is used to run the container detached. This way the container will run in the background. This parameter is optional.
 
-- -e can be used to define the environment variables:
+- **-e** can be used to define the environment variables:
     - SHUTDOWN_EVENT: the received event that will trigger the shutdown.
     Default event is long_click.
     - LOG_LEVEL: define the log level for the python logger.
