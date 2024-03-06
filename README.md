@@ -52,30 +52,28 @@ For example:
 
 After building the image, execute it with docker run.
 
-```docker run --name ${CONTAINER_NAME} --privileged --rm -d -v /run/systemd/system:/run/systemd/system -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket -v /bin/systemctl:/bin/systemctl -e SHUTDOWN_EVENT=triple_click```
+```docker run --name ${CONTAINER_NAME} --rm -d -e SHUTDOWN_EVENT=triple_click```
 
 - --name is used to define the name of the created container.
-
-- --privileged is for granting privileges to the docker container. This is needed because the iombian-button-handler needs to create a thread to listen to the button events.
 
 - --rm can be used to delete the container when it stops. This parameter is optional.
 
 - -d is used to run the container detached. This way the container will run in the background. This parameter is optional.
 
-- -v is used to pass a volume to the container.
-In this case it's used to give the container acces to some files.
-This volumes are necessary so the container can shut down the host machine.
-
 - -e can be used to define the environment variables:
-    - BUTTON_EVENTS_HOST: the host where the button events will be published.
-    Default value is the localhost 127.0.0.1.
-    - BUTTON_EVENTS_PORT: the port where the button events will be published.
-    Default value is 5556.
     - SHUTDOWN_EVENT: the received event that will trigger the shutdown.
     Default event is long_click.
     - LOG_LEVEL: define the log level for the python logger.
     This can be NOTSET, DEBUG, INFO, WARNING, ERROR or CRITICAL.
     Default value is INFO.
+    - BUTTON_EVENTS_HOST: the host where the button events will be published.
+    Default value is the localhost 127.0.0.1.
+    - BUTTON_EVENTS_PORT: the port where the button events will be published.
+    Default value is 5556.
+    - SHUTDOWN_HOST: the host where the shutdown message will be sent.
+    Default value is "127.0.0.1"
+    - SHUTDOWN_PORT: the port where the shutdown message will be sent.
+    Default value is 5558
 
 ## Author
 
