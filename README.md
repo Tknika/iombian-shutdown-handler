@@ -41,6 +41,39 @@ This service listens to a "long_click" event from a ZeroMQ publisher and shuts d
 
 > ```sudo systemctl enable ${PROJECT_NAME}.service && sudo systemctl start ${PROJECT_NAME}.service```
 
+## Docker
+
+To build the docker image, from the cloned repository, execute the docker build command in the same level as the Dockerfile.
+
+```docker build -t ${IMAGE_NAME}:${IMAGE_VERSION} .```
+
+For example:
+```docker build -t iombian-shutdown-handler:latest .```
+
+After building the image, execute it with docker run.
+
+```docker run --name ${CONTAINER_NAME} --rm -d -e SHUTDOWN_EVENT=triple_click```
+
+- **--name** is used to define the name of the created container.
+
+- **--rm** can be used to delete the container when it stops. This parameter is optional.
+
+- **-d** is used to run the container detached. This way the container will run in the background. This parameter is optional.
+
+- **-e** can be used to define the environment variables:
+    - SHUTDOWN_EVENT: the received event that will trigger the shutdown.
+    Default event is long_click.
+    - LOG_LEVEL: define the log level for the python logger.
+    This can be NOTSET, DEBUG, INFO, WARNING, ERROR or CRITICAL.
+    Default value is INFO.
+    - BUTTON_EVENTS_HOST: the host where the button events will be published.
+    Default value is the localhost 127.0.0.1.
+    - BUTTON_EVENTS_PORT: the port where the button events will be published.
+    Default value is 5556.
+    - SHUTDOWN_HOST: the host where the shutdown message will be sent.
+    Default value is "127.0.0.1"
+    - SHUTDOWN_PORT: the port where the shutdown message will be sent.
+    Default value is 5558
 
 ## Author
 
