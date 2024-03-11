@@ -26,7 +26,6 @@ def button_event_callback(event):
     if event == SHUTDOWN_EVENT:
         logger.debug(f"Sending {SHUTDOWN_COMMAND} command to {SHUTDOWN_HOST}:{SHUTDOWN_PORT}")
         comm_module.execute_command(SHUTDOWN_COMMAND)
-        # os.system("systemctl poweroff")
 
 
 def signal_handler(sig, frame):
@@ -38,7 +37,7 @@ def signal_handler(sig, frame):
 if __name__ == "__main__":
     logger.info("Starting IoMBian Shutdown Handler")
 
-    client = SubClient(on_message_callback=button_event_callback, port=BUTTON_EVENTS_PORT, host=BUTTON_EVENTS_HOST)
+    client = SubClient(on_message_callback=button_event_callback, host=BUTTON_EVENTS_HOST, port=BUTTON_EVENTS_PORT)
     client.start()
 
     comm_module = CommunicationModule(host=SHUTDOWN_HOST, port=SHUTDOWN_PORT)
