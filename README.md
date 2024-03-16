@@ -52,7 +52,7 @@ For example:
 
 After building the image, execute it with docker run.
 
-```docker run --name ${CONTAINER_NAME} --rm -d -e SHUTDOWN_EVENT=triple_click```
+```docker run --name ${CONTAINER_NAME} --rm -d -e SHUTDOWN_EVENT=triple_click iombian-shutdown-handler:latest```
 
 - **--name** is used to define the name of the created container.
 
