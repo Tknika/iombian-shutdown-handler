@@ -12,8 +12,8 @@ SHUTDOWN_EVENT = os.environ.get("SHUTDOWN_EVENT", "long_click")
 LOG_LEVEL = os.environ.get("LOG_LEVEL", logging.INFO)
 BUTTON_EVENTS_PORT = int(os.environ.get("BUTTON_EVENTS_PORT", 5556))
 BUTTON_EVENTS_HOST = os.environ.get("BUTTON_EVENTS_HOST", "127.0.0.1")
-SHUTDOWN_HOST = os.environ.get("SHUTDOWN_HOST", "127.0.0.1")
-SHUTDOWN_PORT = int(os.environ.get("SHUTDOWN_PORT", 5558))
+SHUTDOWN_SERVICE_HOST = os.environ.get("SHUTDOWN_HOST", "127.0.0.1")
+SHUTDOWN_SERVICE_PORT = int(os.environ.get("SHUTDOWN_PORT", 5558))
 
 SHUTDOWN_COMMAND = "shutdown"
 
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 def button_event_callback(event):
     logger.debug(f"'{event}' event received")
     if event == SHUTDOWN_EVENT:
-        logger.debug(f"Sending {SHUTDOWN_COMMAND} command to {SHUTDOWN_HOST}:{SHUTDOWN_PORT}")
+        logger.debug(f"Sending {SHUTDOWN_COMMAND} command to {SHUTDOWN_SERVICE_HOST}:{SHUTDOWN_SERVICE_PORT}")
         comm_module.execute_command(SHUTDOWN_COMMAND)
 
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     client = SubClient(on_message_callback=button_event_callback, host=BUTTON_EVENTS_HOST, port=BUTTON_EVENTS_PORT)
     client.start()
 
-    comm_module = CommunicationModule(host=SHUTDOWN_HOST, port=SHUTDOWN_PORT)
+    comm_module = CommunicationModule(host=SHUTDOWN_SERVICE_HOST, port=SHUTDOWN_SERVICE_PORT)
     comm_module.start()
 
     signal.signal(signal.SIGINT, signal_handler)
