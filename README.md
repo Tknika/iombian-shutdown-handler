@@ -70,9 +70,9 @@ After building the image, execute it with docker run.
     Default value is the localhost 127.0.0.1.
     - BUTTON_EVENTS_PORT: the port where the button events will be published.
     Default value is 5556.
-    - SHUTDOWN_HOST: the host where the shutdown message will be sent.
+    - SHUTDOWN_SERVICE_HOST: the host where the shutdown message will be sent.
     Default value is "127.0.0.1"
-    - SHUTDOWN_PORT: the port where the shutdown message will be sent.
+    - SHUTDOWN_SERVICE_PORT: the port where the shutdown message will be sent.
     Default value is 5558
 
 ## Author
